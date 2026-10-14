@@ -1,14 +1,11 @@
-#ifndef ALLOCARSALANOVO_C
-#define ALLOCARSALANOVO_C
-
-#include <stdio.h>
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdbool.h>
-#include "estruturas_e_funcoes.h"
-#include "atribuicao_salas.h"
 
-void inserirRelacao(RelacaoSalaMateriaProfessor **pRel, Sala *s, No *m){
+#include "alocacao_salas.h"
+#include "conflito_horarios.h"
+
+static void inserirRelacao(RelacaoSalaMateriaProfessor **pRel, Sala *s, No *m){
     RelacaoSalaMateriaProfessor *novo = (RelacaoSalaMateriaProfessor *) malloc(sizeof(RelacaoSalaMateriaProfessor));
     novo->sala = s;
     novo->materia = (No *) malloc(sizeof(No));
@@ -26,7 +23,7 @@ void inserirRelacao(RelacaoSalaMateriaProfessor **pRel, Sala *s, No *m){
     }
 }
 
-bool selecionarESalvar(No *headMaterias, RelacaoSalaMateriaProfessor **pRel, No *m, Sala *headSalas, double minTaxa, bool labFilter)
+static bool selecionarESalvar(No *headMaterias, RelacaoSalaMateriaProfessor **pRel, No *m, Sala *headSalas, double minTaxa, bool labFilter)
 {
     (void)headMaterias;
     for (Sala *s = headSalas; s; s = s->proxima) {
@@ -60,7 +57,7 @@ bool selecionarESalvar(No *headMaterias, RelacaoSalaMateriaProfessor **pRel, No 
 }
 
 
-Sala* SelecionaMelhorSalaTaxaObrigatoria(Sala* s, Materias* m, RelacaoSalaMateriaProfessor **pRel){
+static Sala* SelecionaMelhorSalaTaxaObrigatoria(Sala* s, Materias* m, RelacaoSalaMateriaProfessor **pRel){
     Sala* melhor = NULL;
     double melhorTaxa = -1.0;
 
@@ -119,5 +116,3 @@ void AlocarSala(No *headMaterias, Sala *headSalas, RelacaoSalaMateriaProfessor *
         }
     }
 }
-
-#endif

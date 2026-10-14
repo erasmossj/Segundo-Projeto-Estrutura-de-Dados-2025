@@ -1,9 +1,9 @@
-#ifndef ATRIBUICAO_SALAS_H
-#define ATRIBUICAO_SALAS_H
+#include <stdbool.h>
+#include <stddef.h>
 
-#include "estruturas_e_funcoes.h"
+#include "conflito_horarios.h"
 
-bool horariosConflitam(const char *h1, const char *h2) {
+static bool horariosConflitam(const char *h1, const char *h2) {
     char dias1[10], dias2[10];
     char turno1 = '\0', turno2 = '\0';
     char blocos1[10], blocos2[10];
@@ -59,5 +59,3 @@ bool verificarDisponibilidadeHorario(No *lista_de_materias, Materias novaMateria
     }
     return true;
 }
-
-#endif

@@ -1,8 +1,8 @@
-#ifndef LER_DADOS_MATERIAS_H
-#define LER_DADOS_MATERIAS_H
-
 #include <stdio.h>
-#include "estruturas_e_funcoes.h"
+#include <stdlib.h>
+#include <string.h>
+
+#include "ler_dados_materias.h"
 
 /* Lê a próxima linha do arquivo; no fim do arquivo, deixa a linha vazia. */
 static void lerLinha(char *linha, int tamanho, FILE *arquivo)
@@ -10,12 +10,12 @@ static void lerLinha(char *linha, int tamanho, FILE *arquivo)
     if (fgets(linha, tamanho, arquivo) == NULL) linha[0] = '\0';
 }
 
-void associarPreReq(No *materia, No *pre_req_materia, int i) 
+static void associarPreReq(No *materia, No *pre_req_materia, int i) 
 {
     if (materia->data->pre_req[i] == NULL) materia->data->pre_req[i] = pre_req_materia->data;
 }
 
-void associarCoReq(No *materia, No *co_req_materia) 
+static void associarCoReq(No *materia, No *co_req_materia) 
 {
     materia->data->co_req = co_req_materia->data;
     co_req_materia->data->co_req = materia->data;
@@ -130,5 +130,3 @@ No* carregarDados(No *head)
 
     return head;   
 }
-
-#endif

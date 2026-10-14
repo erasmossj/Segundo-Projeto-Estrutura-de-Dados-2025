@@ -1,11 +1,9 @@
-#ifndef LER_DADOS_ALUNO_H
-#define LER_DADOS_ALUNO_H
-
-#include "estruturas_e_funcoes.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+
+#include "ler_dados_aluno.h"
 
 typedef struct Aluno
 {
@@ -14,7 +12,7 @@ typedef struct Aluno
     No *disciplinasCursadas;
 } Aluno;
 
-void preverDependencias(No *head, Aluno *aluno, OptativasEnfase *o)
+static void preverDependencias(No *head, Aluno *aluno, OptativasEnfase *o)
 {
     No *aux = head;
     while (aux != NULL)
@@ -68,7 +66,7 @@ void preverDependencias(No *head, Aluno *aluno, OptativasEnfase *o)
     }
 }
 
-void inputHistorico(FILE *historico, No *head, OptativasEnfase *o)
+static void inputHistorico(FILE *historico, No *head, OptativasEnfase *o)
 {
     Aluno aluno;
     char getLinha[100];
@@ -133,5 +131,3 @@ void controleHistoricoAluno(No *head, OptativasEnfase *o)
         historico = fopen(nome_arquivo, "rb");
     }
 }
-
-#endif

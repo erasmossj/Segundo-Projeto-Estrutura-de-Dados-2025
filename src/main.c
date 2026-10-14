@@ -1,13 +1,15 @@
-#include "estruturas_e_funcoes.h"
+#include <stdio.h>
+
+#include "estruturas.h"
 #include "ler_dados_materias.h"
 #include "ler_dados_aluno.h"
 #include "ler_dados_professores.h"
-#include "atribuicao_salas.h"
-#include "AlocarSalaNovo.h"
-#include "AlocarProfessores.h"
+#include "ler_dados_salas.h"
 #include "optativas.h"
+#include "alocacao_salas.h"
+#include "alocacao_professores.h"
 
-void output_func(RelacaoSalaMateriaProfessor *p, FILE *output)
+static void output_func(RelacaoSalaMateriaProfessor *p, FILE *output)
 {
     if (p == NULL) return;
 
@@ -17,7 +19,7 @@ void output_func(RelacaoSalaMateriaProfessor *p, FILE *output)
     fprintf(output, "Sala: %s, Materia: %s %s, Professor: %s\n", p->sala->nome_sala, p->materia->data->no_comp, p->materia->data->horario, p->professor->nome);
 }
 
-int main()
+int main(void)
 {
     No *lista_de_disciplinas = CreateNewNode();
     lista_de_disciplinas = carregarDados(lista_de_disciplinas);
