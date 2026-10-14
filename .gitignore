@@ -1,0 +1,8 @@
+# Artefatos de build
+obj/
+bin/
+*.o
+*.d
+
+# Oferta gerada pelo make run / make test (a referência fica em tests/)
+dados/oferta.txt

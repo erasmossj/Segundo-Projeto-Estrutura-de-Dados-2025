@@ -1,11 +1,9 @@
-#ifndef LER_DADOS_ALUNO_H
-#define LER_DADOS_ALUNO_H
-
-#include "estruturas_e_funcoes.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+
+#include "ler_dados_aluno.h"
 
 typedef struct Aluno
 {
@@ -14,7 +12,7 @@ typedef struct Aluno
     No *disciplinasCursadas;
 } Aluno;
 
-void preverDependencias(No *head, Aluno *aluno, OptativasEnfase *o)
+static void preverDependencias(No *head, Aluno *aluno, OptativasEnfase *o)
 {
     No *aux = head;
     while (aux != NULL)
@@ -68,17 +66,18 @@ void preverDependencias(No *head, Aluno *aluno, OptativasEnfase *o)
     }
 }
 
-void inputHistorico(FILE *historico, No *head, OptativasEnfase *o)
+static void inputHistorico(FILE *historico, No *head, OptativasEnfase *o)
 {
     Aluno aluno;
     char getLinha[100];
 
-    fgets(getLinha, sizeof(getLinha), historico);
-    strcpy(aluno.enfase, getLinha);
-    aluno.enfase[strcspn(aluno.enfase, "\n")] = 0;
+    if (fgets(getLinha, sizeof(getLinha), historico) == NULL) return;
+    getLinha[strcspn(getLinha, "\r\n")] = 0;
+    strncpy(aluno.enfase, getLinha, sizeof(aluno.enfase) - 1);
+    aluno.enfase[sizeof(aluno.enfase) - 1] = '\0';
     memset(getLinha, 0, sizeof(getLinha));
 
-    fgets(getLinha, sizeof(getLinha), historico);
+    if (fgets(getLinha, sizeof(getLinha), historico) == NULL) return;
     aluno.periodo = atoi(getLinha) + 1;
     memset(getLinha, 0, sizeof(getLinha));
 
@@ -86,12 +85,13 @@ void inputHistorico(FILE *historico, No *head, OptativasEnfase *o)
     while (fgets(getLinha, sizeof(getLinha), historico) != NULL)
     {
         char *token = strtok(getLinha, ";");
-        char cod_comp[10];
-        strcpy(cod_comp, token);
+        if (token == NULL) continue;
+        char cod_comp[16];
+        snprintf(cod_comp, sizeof(cod_comp), "%s", token);
 
-        token = strtok(NULL, "\n");
-        char nota_char[5];
-        strcpy(nota_char, token);
+        token = strtok(NULL, "\r\n");
+        char nota_char[16];
+        snprintf(nota_char, sizeof(nota_char), "%s", token != NULL ? token : "");
 
         double nota = atof(nota_char);
 
@@ -119,7 +119,7 @@ void controleHistoricoAluno(No *head, OptativasEnfase *o)
     char nome_arquivo[64];
 
     sprintf(nome_arquivo, "historico_%d.txt", id_aluno);
-    FILE *historico = fopen(nome_arquivo, "r");
+    FILE *historico = fopen(nome_arquivo, "rb");
 
     while (historico != NULL)
     {
@@ -128,8 +128,6 @@ void controleHistoricoAluno(No *head, OptativasEnfase *o)
 
         id_aluno++;
         sprintf(nome_arquivo, "historico_%d.txt", id_aluno);
-        historico = fopen(nome_arquivo, "r");
+        historico = fopen(nome_arquivo, "rb");
     }
 }
-
-#endif

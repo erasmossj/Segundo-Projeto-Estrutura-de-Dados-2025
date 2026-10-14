@@ -1,0 +1,3 @@
+# Os arquivos de dados são lidos byte a byte (o parser compara com "\r\n"),
+# então o Git não deve converter as quebras de linha deles.
+*.txt -text

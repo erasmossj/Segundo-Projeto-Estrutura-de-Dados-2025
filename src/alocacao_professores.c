@@ -1,9 +1,9 @@
-#ifndef ALOCARPROFESSORES_C
-#define ALOCARPROFESSORES_C
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
 
-#include "estruturas_e_funcoes.h"
-#include "atribuicao_salas.h"
-
+#include "alocacao_professores.h"
+#include "conflito_horarios.h"
 
 RelacaoSalaMateriaProfessor* SearchElementRelacao(RelacaoSalaMateriaProfessor *relacao, char *codMateria) {
     while (relacao != NULL)
@@ -17,7 +17,7 @@ RelacaoSalaMateriaProfessor* SearchElementRelacao(RelacaoSalaMateriaProfessor *r
     return NULL;
 }
 
-Professor* SearchProfessor(Professor *professores, char *nome) {
+static Professor* SearchProfessor(Professor *professores, char *nome) {
     while (professores != NULL)
     {
         if (strcmp(professores->nome, nome) == 0)
@@ -26,6 +26,7 @@ Professor* SearchProfessor(Professor *professores, char *nome) {
         }
         professores = professores->proximo;
     }
+    return NULL;
 }
 
 void escolherProfessorMateria(RelacaoSalaMateriaProfessor *relacao, Professor *professor) 
@@ -167,5 +168,3 @@ void escolherProfessorMateria(RelacaoSalaMateriaProfessor *relacao, Professor *p
     }
     
 }
-
-#endif

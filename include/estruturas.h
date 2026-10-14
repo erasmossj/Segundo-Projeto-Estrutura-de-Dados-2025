@@ -1,9 +1,9 @@
-#ifndef ESTRUTURAS_E_FUNCOES_H
-#define ESTRUTURAS_E_FUNCOES_H
+#ifndef ESTRUTURAS_H
+#define ESTRUTURAS_H
+
+/* Estruturas de dados compartilhadas e funções auxiliares de lista. */
 
 #include <stdbool.h>
-#include <stdlib.h>
-#include <string.h>
 
 typedef struct Materias
 {
@@ -56,19 +56,10 @@ typedef struct RelacaoSalaMateriaProfessor{
     struct RelacaoSalaMateriaProfessor *proxima;
 } RelacaoSalaMateriaProfessor;
 
-No* CreateNewNode()
-{
-    return NULL;
-}
+/* Cria uma lista de disciplinas vazia. */
+No* CreateNewNode(void);
 
-No* SearchElement(char *cod_comp, No *head)
-{
-    No *current = head;
-    while (current != NULL)
-    {
-        if (strcmp(current->data->cod_comp, cod_comp) == 0) return current;
-        current = current->next;
-    }
-}
+/* Procura a disciplina pelo código; retorna NULL se não encontrar. */
+No* SearchElement(char *cod_comp, No *head);
 
 #endif
