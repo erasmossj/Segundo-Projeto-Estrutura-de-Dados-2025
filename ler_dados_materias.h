@@ -4,6 +4,12 @@
 #include <stdio.h>
 #include "estruturas_e_funcoes.h"
 
+/* Lê a próxima linha do arquivo; no fim do arquivo, deixa a linha vazia. */
+static void lerLinha(char *linha, int tamanho, FILE *arquivo)
+{
+    if (fgets(linha, tamanho, arquivo) == NULL) linha[0] = '\0';
+}
+
 void associarPreReq(No *materia, No *pre_req_materia, int i) 
 {
     if (materia->data->pre_req[i] == NULL) materia->data->pre_req[i] = pre_req_materia->data;
@@ -17,21 +23,21 @@ void associarCoReq(No *materia, No *co_req_materia)
 
 No* carregarDados(No *head)
 {
-    FILE *materias = fopen("materias.txt", "r");
+    FILE *materias = fopen("materias.txt", "rb");
 
     char getLinha[200];
 
-    fgets(getLinha, sizeof(getLinha), materias);
+    lerLinha(getLinha, sizeof(getLinha), materias);
 
     while(strcmp(getLinha, "INICIO PRE-REQUISITOS\r\n") != 0)
     {
-        No *newNode = (No*) malloc(sizeof(No));
-        newNode->data = (Materias *)malloc(sizeof(Materias));
+        No *newNode = (No*) calloc(1, sizeof(No));
+        newNode->data = (Materias *)calloc(1, sizeof(Materias));
         newNode->next = NULL;
 
         if (strcmp("\r\n", getLinha) == 0)
         {
-            fgets(getLinha, sizeof(getLinha), materias);
+            lerLinha(getLinha, sizeof(getLinha), materias);
             continue;
         }
 
@@ -78,21 +84,21 @@ No* carregarDados(No *head)
 
         memset(getLinha, 0, sizeof(getLinha));
 
-        fgets(getLinha, sizeof(getLinha), materias);
+        lerLinha(getLinha, sizeof(getLinha), materias);
     }
 
     memset(getLinha, 0, sizeof(getLinha));
-    fgets(getLinha, sizeof(getLinha), materias);
+    lerLinha(getLinha, sizeof(getLinha), materias);
     memset(getLinha, 0, sizeof(getLinha));
 
-    fgets(getLinha, sizeof(getLinha), materias);
+    lerLinha(getLinha, sizeof(getLinha), materias);
 
     while (strcmp(getLinha, "FIM") != 0)
     {
 
         if (strcmp(getLinha, "\r\n") == 0)
         {
-            fgets(getLinha, sizeof(getLinha), materias);
+            lerLinha(getLinha, sizeof(getLinha), materias);
             continue;
         }
 
@@ -112,7 +118,7 @@ No* carregarDados(No *head)
         }
 
         memset(getLinha, 0, sizeof(getLinha));
-        fgets(getLinha, sizeof(getLinha), materias);
+        lerLinha(getLinha, sizeof(getLinha), materias);
     }
     
     No *codependente = SearchElement("COMP372", head);

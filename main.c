@@ -36,7 +36,7 @@ int main()
     AlocarSala(lista_de_disciplinas, lista_de_salas, &output);
     escolherProfessorMateria(output, lista_de_professores);
 
-    FILE *output_txt = fopen("oferta.txt", "w");
+    FILE *output_txt = fopen("oferta.txt", "wb");
 
     output_func(output, output_txt);
 

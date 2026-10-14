@@ -28,6 +28,7 @@ void inserirRelacao(RelacaoSalaMateriaProfessor **pRel, Sala *s, No *m){
 
 bool selecionarESalvar(No *headMaterias, RelacaoSalaMateriaProfessor **pRel, No *m, Sala *headSalas, double minTaxa, bool labFilter)
 {
+    (void)headMaterias;
     for (Sala *s = headSalas; s; s = s->proxima) {
         if (labFilter && strcmp(s->tipo_sala, "laboratorio") != 0)
             continue;

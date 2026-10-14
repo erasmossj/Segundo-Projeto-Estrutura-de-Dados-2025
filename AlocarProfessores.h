@@ -26,6 +26,7 @@ Professor* SearchProfessor(Professor *professores, char *nome) {
         }
         professores = professores->proximo;
     }
+    return NULL;
 }
 
 void escolherProfessorMateria(RelacaoSalaMateriaProfessor *relacao, Professor *professor) 

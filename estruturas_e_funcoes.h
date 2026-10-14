@@ -69,6 +69,7 @@ No* SearchElement(char *cod_comp, No *head)
         if (strcmp(current->data->cod_comp, cod_comp) == 0) return current;
         current = current->next;
     }
+    return NULL;
 }
 
 #endif

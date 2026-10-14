@@ -6,7 +6,7 @@
 
 Professor* carregarDadosProfessores(No *head)
 {
-    FILE *arquivo = fopen("professores.txt", "r");
+    FILE *arquivo = fopen("professores.txt", "rb");
     Professor *newProfessor = NULL;
 
     char getLinha[100];
@@ -14,7 +14,7 @@ Professor* carregarDadosProfessores(No *head)
 
     while (fgets(getLinha, sizeof(getLinha), arquivo) != NULL)
     {
-        Professor *new_prof = (Professor*)malloc(sizeof(Professor));
+        Professor *new_prof = (Professor*)calloc(1, sizeof(Professor));
         char *token = strtok(getLinha, ";");
 
         strcpy(new_prof->nome, token);
@@ -52,7 +52,7 @@ Professor* carregarDadosProfessores(No *head)
 
 Sala* carregarDadosSalas()
 {
-    FILE *arquivo = fopen("salas.txt", "r");
+    FILE *arquivo = fopen("salas.txt", "rb");
     Sala *newSala = NULL;
 
     char getLinha[100];
@@ -60,7 +60,7 @@ Sala* carregarDadosSalas()
 
     while (fgets(getLinha, sizeof(getLinha), arquivo) != NULL)
     {
-        Sala *new_sala = (Sala*)malloc(sizeof(Sala));
+        Sala *new_sala = (Sala*)calloc(1, sizeof(Sala));
         char *token = strtok(getLinha, ";");
 
         strcpy(new_sala->nome_sala, token);
